@@ -5,7 +5,6 @@ let calculator = {
   read (a, b) {
     this.a = a;
     this.b = b;
-    return this;
   },
 
   sum () { return this.a + this.b; },
