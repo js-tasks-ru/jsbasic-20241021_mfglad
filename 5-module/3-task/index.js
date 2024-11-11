@@ -19,6 +19,6 @@ function initCarousel() {
     if (!arrowButton) return;
     currentSlide = arrowButton == arrowRightButton ? currentSlide + 1 : currentSlide - 1;
     carouselInner.style.transform = `translateX(-${carouselWidth * currentSlide}px)`;
-    showArrows()
+    showArrows();
   });
 }
