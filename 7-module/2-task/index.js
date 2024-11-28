@@ -36,7 +36,8 @@ export default class Modal {
   }
 
   setBody(modalBody) {
-    this.modal.querySelector('.modal__body').innerHTML = modalBody.outerHTML;
+    this.modal.querySelector('.modal__body').innerHTML = "";
+    this.modal.querySelector('.modal__body').append(modalBody);
   }
 
   close = () => {
@@ -47,7 +48,7 @@ export default class Modal {
 
   #render() {
     this.modal = createElement(this.#template());
-    this.modal.querySelector('.modal__close').addEventListener('click', () => this.close(), {once: true});
+    this.modal.querySelector('.modal__close').addEventListener('click', () => this.close());
     document.addEventListener('keydown', this.#onKeyDown);
   }
 

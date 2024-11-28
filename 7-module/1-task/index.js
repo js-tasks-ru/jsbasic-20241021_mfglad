@@ -3,7 +3,6 @@ import createElement from '../../assets/lib/create-element.js';
 export default class RibbonMenu {
 
   elem = null;
-  slides = null;
 
   get elem() {
     return this.elem;
@@ -54,18 +53,20 @@ export default class RibbonMenu {
     });
 
     links.forEach(link => {
-      link.addEventListener('click', (event) => {
-        event.preventDefault();
-        this.elem.querySelectorAll('.ribbon__item_active').forEach(e => { e.classList.remove('ribbon__item_active') });
-        link.classList.add('ribbon__item_active');
-        this.elem.dispatchEvent(
-          new CustomEvent('ribbon-select', {
-            detail: link.dataset.id,
-            bubbles: true
-          }))
-      });
+      link.addEventListener('click', (event) => this.#onClickLink(event, link));
     });
   }
+
+  #onClickLink = (event, link) => {
+    event.preventDefault();
+    this.elem.querySelectorAll('.ribbon__item_active').forEach(e => { e.classList.remove('ribbon__item_active') });
+    link.classList.add('ribbon__item_active');
+    this.elem.dispatchEvent(
+      new CustomEvent('ribbon-select', {
+        detail: link.dataset.id,
+        bubbles: true
+      }))
+   }
 
   #showButtons() {
     let scrollWidth = this.ribbonInner.scrollWidth;
