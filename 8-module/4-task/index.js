@@ -32,7 +32,6 @@ export default class Cart {
       cartItem.count += amount;
       if (cartItem.count === 0) {
         this.cartItems.splice(cartItemIndex, 1);
-        return;
       }
       this.onProductUpdate(cartItem);
     }
@@ -121,9 +120,14 @@ export default class Cart {
   }
 
   onProductUpdate(cartItem) {
+    let productId = cartItem.product.id;
     this.cartIcon.update(this);
     if (!document.body.classList.contains('is-modal-open')) return;
-    let productId = cartItem.product.id;
+    if (cartItem.count === 0) {
+      this.modalBody.querySelector(`[data-product-id="${productId}"]`).remove();
+      if (this.isEmpty()) { this.modal.close() }
+      return;
+    }
     let productCount = this.modalBody.querySelector(`[data-product-id="${productId}"] .cart-counter__count`);
     let productPrice = this.modalBody.querySelector(`[data-product-id="${productId}"] .cart-product__price`);
     let infoPrice = this.modalBody.querySelector(`.cart-buttons__info-price`);
@@ -137,7 +141,7 @@ export default class Cart {
     let form = event.target;
     const formData = new FormData(form);
     form.querySelector('[type="submit"]').classList.add('is-loading');
-    
+
     const fetchPromise = fetch('https://httpbin.org/post', {
       body: formData,
       method: 'POST'
