@@ -32,7 +32,7 @@ export default class ProductGrid {
   }
 
   #isMatchFilters(product, filters) {
-    return (filters.noNuts === undefined || filters.noNuts !== product.nuts)
+    return (filters.noNuts === undefined || filters.noNuts === false || filters.noNuts !== product.nuts)
       && (filters.vegeterianOnly === undefined || filters.vegeterianOnly === false || filters.vegeterianOnly === product.vegeterian)
       && (filters.maxSpiciness === undefined || filters.maxSpiciness >= product.spiciness)
       && (filters.category === undefined || filters.category === '' || filters.category === product.category)
