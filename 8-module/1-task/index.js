@@ -39,6 +39,7 @@ export default class CartIcon {
   }
 
   updatePosition() {
+    if (!document.querySelector('.container')) return;
     this.initialTopCoord = this.initialTopCoord === undefined ? this.elem.getBoundingClientRect().top + window.pageYOffset : this.initialTopCoord;
 
     if (document.documentElement.clientWidth <= 767) {
